@@ -267,8 +267,8 @@ async function updateCurrent(){
   const cur=await fetchFeeds("results=1");
   if(!cur.length)return;
   const f=cur[0];
-  const tK=+f.field5||0;
-  const tZ=+f.field1||0;
+  const tK=+f.field1||0;
+  const tZ=+f.field2||0;
   tKotel.textContent=tK.toFixed(1)+" °C";
   tZpet.textContent=tZ.toFixed(1)+" °C";
   tPodavac.textContent=(+f.field2||0).toFixed(1)+" °C";
