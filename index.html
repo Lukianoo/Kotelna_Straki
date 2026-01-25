@@ -116,8 +116,7 @@ footer img:hover{
   <div class="card"><h2>↩️ Zpátečka</h2><div class="value blue" id="tZpet">--</div></div>
   <div class="card"><h2>🌡️ Teplotní spád ΔT</h2><div class="value orange" id="deltaT">--</div></div>
   <div class="card"><h2>⚡ Aktuální výkon</h2><div class="value green" id="powerKWbig">--</div></div>
-  <div class="card"><h2>⚙️ Podavač</h2><div class="value" id="tPodavac">--</div></div>
-  <div class="card"><h2>💧 Bojler</h2><div class="value" id="tBojler">--</div></div>
+  
   <div class="card"><h2>🌡️ Venku</h2><div class="value" id="tVenku">--</div></div>
   <div class="card"><h2>⏱️ Podavač celkem</h2><div class="value" id="feedTotal">--</div></div>
 </div>
@@ -271,8 +270,7 @@ async function updateCurrent(){
   const tZ=+f.field2||0;
   tKotel.textContent=tK.toFixed(1)+" °C";
   tZpet.textContent=tZ.toFixed(1)+" °C";
-  tPodavac.textContent=(+f.field2||0).toFixed(1)+" °C";
-  tBojler.textContent=(+f.field3||0).toFixed(1)+" °C";
+ 
  
   deltaT.textContent=(tK-tZ).toFixed(1)+" °C";
   const totalSec=+f.field8||0;
