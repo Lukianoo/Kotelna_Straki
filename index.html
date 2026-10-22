@@ -576,15 +576,23 @@ function wxInfo(c){
   return ["🌡️","–"];
 }
 // karta počasí vyplní zbytek řádku vpravo od „Podavač celkem“
+// Na PC: když jsou v řádku před počasím 2 malé karty (Venku, Podavač),
+// dají se pod sebe do 1. sloupce a počasí zabere zbytek – bez prázdného místa.
 function fitWeatherCard(){
   const card=document.getElementById("weatherCard"); if(!card) return;
-  const grid=card.parentElement;
-  card.style.gridColumn="";
+  const grid=card.parentElement, kids=[...grid.children];
+  kids.forEach(k=>{ k.style.gridColumn=""; k.style.gridRow=""; k.style.alignSelf=""; });
   const cols=getComputedStyle(grid).gridTemplateColumns.split(" ").filter(Boolean).length;
-  const idx=[...grid.children].indexOf(card);
-  const pos=idx % cols;
-  const span = pos===0 ? cols : cols-pos;
-  card.style.gridColumn = `span ${Math.max(1, Math.min(span, cols))}`;
+  const idx=kids.indexOf(card), pos=idx % cols;
+  if(pos===0){ card.style.gridColumn=`span ${cols}`; return; }      // mobil: přes celou šířku
+  const row=Math.floor(idx/cols)+1;
+  if(pos===2 && cols>=3){
+    kids.slice(idx-2, idx).forEach((k,i)=>{ k.style.gridColumn="1"; k.style.gridRow=String(row+i); });
+    card.style.gridColumn="2 / -1"; card.style.gridRow=`${row} / span 2`;
+  } else {
+    card.style.gridColumn=`span ${cols-pos}`;
+    kids.slice(idx-pos, idx).forEach(k=>k.style.alignSelf="start");
+  }
 }
 async function updateWeather(){
   try{
